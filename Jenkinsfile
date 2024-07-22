@@ -39,7 +39,7 @@ pipeline{
               pwd
               helm package .
               ls
-              helm registry login registry-1.docker.io -u ${DOCKER_USER} --password=${C_PASS}
+              echo $REG_PAT | helm registry login registry-1.docker.io -u ${DOCKER_USER} --password-stdin
               helm push ${chartNameDetect}-${newVersion}.tgz  oci://registry-1.docker.io/${DOCKER_USER}
               rm -f ${chartNameDetect}-${newVersion}.tgz
             """
