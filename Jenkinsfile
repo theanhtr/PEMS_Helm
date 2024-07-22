@@ -24,7 +24,7 @@ pipeline{
               pwd
               helm package .
               ls
-              helm repo add chartmuseum http://localhost:8080 --force-update
+              helm repo add chartmuseum http://localhost:8081 --force-update
               helm cm-push ${chartNameDetect}-${newVersion}.tgz chartmuseum
               rm -f ${chartNameDetect}-${newVersion}.tgz
           """
