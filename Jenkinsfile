@@ -29,7 +29,13 @@ pipeline{
               pwd
               helm package .
               ls
-              echo $REG_PAT | helm registry login registry-1.docker.io -u ${DOCKER_USER} --password-stdin
+
+              withCredentials([usernamePassword(credentialsId: ${DOCKER_PASS}, usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
+                sh """
+                  helm registry login registry-1.docker.io -u ${USER} --password=${PASSWORD}
+                """
+              }
+              
               helm push ${chartNameDetect}-${newVersion}.tgz  oci://registry-1.docker.io/${DOCKER_USER}
               rm -f ${chartNameDetect}-${newVersion}.tgz
           """
