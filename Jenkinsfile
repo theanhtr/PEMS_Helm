@@ -25,26 +25,14 @@ pipeline{
           def chartNameDetect = sh(script: "cat Chart.yaml | grep name: | cut -d' ' -f2 |tr -d '\n'", returnStdout: true)
           println "Chart name is : ${chartNameDetect}"
 
-          // sh """
-          //     pwd
-          //     helm package .
-          //     ls
-          //     helm registry login registry-1.docker.io -u ${DOCKER_USER} --password=${DOCKER_PASS}
-          //     helm push ${chartNameDetect}-${newVersion}.tgz  oci://registry-1.docker.io/${DOCKER_USER}
-          //     rm -f ${chartNameDetect}-${newVersion}.tgz
-          // """
-
-          withCredentials([usernamePassword(credentialsId: ${DOCKER_PASS}, passwordVariable: 'C_PASS', usernameVariable: 'C_USER')]) {
-            sh """
+          sh """
               pwd
               helm package .
               ls
               echo $REG_PAT | helm registry login registry-1.docker.io -u ${DOCKER_USER} --password-stdin
               helm push ${chartNameDetect}-${newVersion}.tgz  oci://registry-1.docker.io/${DOCKER_USER}
               rm -f ${chartNameDetect}-${newVersion}.tgz
-            """
-          }
-          
+          """
         }
       }
     }
