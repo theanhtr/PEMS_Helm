@@ -16,20 +16,18 @@ pipeline{
     stage("Push Helm Chart"){
       steps {
         script {
-            dir("/") {
-                def newVersion = sh(script: "cat Chart.yaml | grep version: | cut -d' ' -f2 |tr -d '\n'", returnStdout: true)
-                println "Chart version is : ${newVersion}"
-                def chartNameDetect = sh(script: "cat Chart.yaml | grep name: | cut -d' ' -f2 |tr -d '\n'", returnStdout: true)
-                println "Chart name is : ${chartNameDetect}"
-                sh """
-                    pwd
-                    helm package .
-                    ls
-                    helm repo add chartmuseum http://localhost:8080 --force-update
-                    helm cm-push ${chartNameDetect}-${newVersion}.tgz chartmuseum
-                    rm -f ${chartNameDetect}-${newVersion}.tgz
-                """
-            }
+          def newVersion = sh(script: "cat Chart.yaml | grep version: | cut -d' ' -f2 |tr -d '\n'", returnStdout: true)
+          println "Chart version is : ${newVersion}"
+          def chartNameDetect = sh(script: "cat Chart.yaml | grep name: | cut -d' ' -f2 |tr -d '\n'", returnStdout: true)
+          println "Chart name is : ${chartNameDetect}"
+          sh """
+              pwd
+              helm package .
+              ls
+              helm repo add chartmuseum http://localhost:8080 --force-update
+              helm cm-push ${chartNameDetect}-${newVersion}.tgz chartmuseum
+              rm -f ${chartNameDetect}-${newVersion}.tgz
+          """
         }
       }
     }
