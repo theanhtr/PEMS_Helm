@@ -1,0 +1,27 @@
+{{- range $services := .Values.services }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $services.appName }}
+  labels:
+    app: {{ $services.appName }}
+spec:
+  replicas: {{ $services.replicas }}
+  selector:
+    matchLabels:
+      app: {{ $services.appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ $services.appName }}
+    spec:
+      containers:
+      - name: {{ $services.appName }}
+        image: {{ $.Values.repoPrefix }}/{{ $services.image.repository }}:{{ $services.image.tag }}
+        ports:
+        - containerPort: {{ $services.port }}
+        {{if $services.env}}
+        env: {{ $services.env | toYaml | nindent 8 }}
+        {{- end}}
+---
+{{- end }}
