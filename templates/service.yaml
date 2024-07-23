@@ -12,6 +12,9 @@ spec:
       targetPort: {{ $services.port }}
       protocol: TCP
       name: http
+      {{- if $services.nodePort }}
+      nodePort: {{- $services.nodePort }}
+      {{- end }}
   selector:
     app: {{ $services.appName }}
 ---    
