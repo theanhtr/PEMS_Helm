@@ -1,17 +1,16 @@
 environment: test
 repoPrefix: "theanh0906"
 servicePort: 80
+replicaCount: 1
 
 services:
   - appName: pems-fe
-    replicas: 2
     type: ClusterIP
     port: 80
     image: 
       repository: pems_fe
       tag: r1.0.1
   - appName: pems-be
-    replicas: 2
     type: ClusterIP
     port: 5000
     image: 
