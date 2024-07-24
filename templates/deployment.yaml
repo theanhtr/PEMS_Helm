@@ -8,7 +8,6 @@ metadata:
 spec:
   replicas: {{ $.Values.replicaCount }}
   revisionHistoryLimit: 0
-  imagePullPolicy: Always
   selector:
     matchLabels:
       app: {{ $services.appName }}
@@ -20,6 +19,7 @@ spec:
       containers:
       - name: {{ $services.appName }}
         image: {{ $.Values.repoPrefix }}/{{ $services.image.repository }}:{{ $services.image.tag }}
+        imagePullPolicy: Always
         ports:
         - containerPort: {{ $services.port }}
         {{if $services.env}}
