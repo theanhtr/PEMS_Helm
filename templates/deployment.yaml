@@ -8,6 +8,7 @@ metadata:
 spec:
   replicas: {{ $.Values.replicaCount }}
   revisionHistoryLimit: 0
+  imagePullPolicy: Always
   selector:
     matchLabels:
       app: {{ $services.appName }}
