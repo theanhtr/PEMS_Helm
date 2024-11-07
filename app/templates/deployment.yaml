@@ -19,7 +19,7 @@ spec:
       containers:
       - name: {{ $services.appName }}
         image: {{ $.Values.repoPrefix }}/{{ $services.image.repository }}:{{ $services.image.tag }}
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: {{ $services.port }}
         {{if $services.env}}

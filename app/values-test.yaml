@@ -5,16 +5,16 @@ replicaCount: 1
 
 services:
   - appName: pems-fe
-    type: NodePort
+    type: ClusterIP
     port: 80
     nodePort: 30001
     image: 
       repository: pems_fe
-      tag: r1.0.1
+      tag: 1.0.3
   - appName: pems-be
-    type: NodePort
+    type: ClusterIP
     port: 80
     nodePort: 30002
     image: 
       repository: pems_be
-      tag: r1.0.1
+      tag: 1.0.3
