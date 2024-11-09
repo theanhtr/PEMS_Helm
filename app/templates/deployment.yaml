@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: {{ $services.appName }}
-        {{- if $services.image.tag}}
+        {{- if and $services.image $services.image.tag}}
         image: {{ $.Values.repoPrefix }}/{{ $services.appName }}:{{ $services.image.tag }}
         {{- else}}
         image: {{ $.Values.repoPrefix }}/{{ $services.appName }}:{{ $.Values.imageDefaultTag }}
