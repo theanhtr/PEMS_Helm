@@ -1,7 +1,7 @@
 environment: test
 repoPrefix: "theanh0906"
 servicePort: 80
-deploymentPort: 80
+deploymentPort: 8080
 replicaCount: 2
 imageDefaultTag: 1.0.1
 
