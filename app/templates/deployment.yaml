@@ -18,11 +18,19 @@ spec:
     spec:
       containers:
       - name: {{ $services.appName }}
-        image: {{ $.Values.repoPrefix }}/{{ $services.image.repository }}:{{ $services.image.tag }}
+        {{- if $services.image.tag}}
+        image: {{ $.Values.repoPrefix }}/{{ $services.appName }}:{{ $services.image.tag }}
+        {{- else}}
+        image: {{ $.Values.repoPrefix }}/{{ $services.appName }}:{{ $.Values.imageDefaultTag }}
+        {{- end}}
         imagePullPolicy: IfNotPresent
         ports:
+        {{- if $services.port}}
         - containerPort: {{ $services.port }}
-        {{if $services.env}}
+        {{- else}}
+        - containerPort: {{ $.Values.deploymentPort }}
+        {{- end}}
+        {{- if $services.env}}
         env: {{ $services.env | toYaml | nindent 8 }}
         {{- end}}
 ---

@@ -1,0 +1,14 @@
+environment: test
+repoPrefix: "theanh0906"
+servicePort: 80
+deploymentPort: 80
+replicaCount: 2
+imageDefaultTag: 1.0.1
+
+services:
+  - appName: pems-fe
+  - appName: authen-api
+  - appName: weather-api
+  - appName: predict-api
+  - appName: user-api
+  - appName: report-api

@@ -6,15 +6,25 @@ metadata:
   labels:
     app: {{ $services.appName }}-svc
 spec:
+  {{- if $services.type}}
   type: {{ $services.type }}
+  {{- else}}
+  type: ClusterIP
+  {{- end}}
   ports:
     - port: {{ $.Values.servicePort }}
+      {{- if $services.port}}
       targetPort: {{ $services.port }}
+      {{- else}}
+      targetPort: {{ $.Values.deploymentPort }}
+      {{- end}}
       protocol: TCP
       name: http
-      {{ if eq $services.type "NodePort"}}
+      {{- if $services.type}}
+      {{- if eq $services.type "NodePort"}}
       nodePort: {{ $services.nodePort }}
-      {{ end }}
+      {{- end }}
+      {{- end }}
   selector:
     app: {{ $services.appName }}
 ---
