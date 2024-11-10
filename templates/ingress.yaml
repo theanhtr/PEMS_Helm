@@ -14,6 +14,8 @@ spec:
       - path: {{ $.Values.prefixPath }}{{ $services.subPath }}
         pathType: Prefix
         backend:
-          serviceName: {{ $services.appName }}
-          servicePort: {{ $.Values.servicePort }}
+          service:
+            name: {{ $services.appName }}-svc
+            port:
+              number: {{ $.Values.servicePort }}
       {{- end }}
