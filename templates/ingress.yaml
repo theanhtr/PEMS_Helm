@@ -1,12 +1,3 @@
-apiVersion: v1
-kind: Secret
-metadata:
-  name: pems-{{ $.Values.environment }}-secret
-type: Opaque
-data:
-  tls.crt: 5452137bea587bb2cec49d8c92ee42977539a43ad5eccdefb58f5dc6abde0e8b
-  tls.key: a3475052df66ecf3398882ef62aa047d483fc759d621853c3b51c201eb5800ba
----
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -18,10 +9,6 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
   ingressClassName: nginx
-  tls:
-  - hosts:
-    - {{ $.Values.hostIngress }}
-    secretName: pems-{{ $.Values.environment }}-secret
   rules:
   - host: {{ $.Values.hostIngress }}
     http:
