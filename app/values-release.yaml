@@ -1,18 +1,22 @@
-environment: test
+environment: release
 repoPrefix: "theanh0906"
 servicePort: 80
-replicaCount: 1
+deploymentPort: 8080
+replicaCount: 2
+imageDefaultTag: 1.0.1
+prefixPath: /release
+hostIngress: noted-burro-glad.ngrok-free.app
 
 services:
   - appName: pems-fe
-    type: ClusterIP
-    port: 80
-    image: 
-      repository: pems_fe
-      tag: r1.0.1-release
-  - appName: pems-be
-    type: ClusterIP
-    port: 80
-    image: 
-      repository: pems_be
-      tag: r1.0.1-release
+    subPath: /ui
+  - appName: authen-api
+    subPath: /APIS/AuthenAPI
+  - appName: weather-api
+    subPath: /APIS/WeatherAPI
+  - appName: predict-api
+    subPath: /APIS/PredictAPI
+  - appName: user-api
+    subPath: /APIS/UserAPI
+  - appName: report-api
+    subPath: /APIS/ReportAPI

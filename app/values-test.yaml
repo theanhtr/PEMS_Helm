@@ -4,11 +4,19 @@ servicePort: 80
 deploymentPort: 8080
 replicaCount: 2
 imageDefaultTag: 1.0.1
+prefixPath: /test
+hostIngress: noted-burro-glad.ngrok-free.app
 
 services:
   - appName: pems-fe
+    subPath: /ui
   - appName: authen-api
+    subPath: /APIS/AuthenAPI
   - appName: weather-api
+    subPath: /APIS/WeatherAPI
   - appName: predict-api
+    subPath: /APIS/PredictAPI
   - appName: user-api
+    subPath: /APIS/UserAPI
   - appName: report-api
+    subPath: /APIS/ReportAPI
