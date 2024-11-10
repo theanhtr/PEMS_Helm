@@ -6,10 +6,13 @@ replicaCount: 2
 imageDefaultTag: 1.0.1
 prefixPath: /release
 hostIngress: noted-burro-glad.ngrok-free.app
+defaultHealthCheckPath: /Test
 
 services:
   - appName: pems-fe
     subPath: /ui
+    healthCheckPath: /
+    port: 80
   - appName: authen-api
     subPath: /APIS/AuthenAPI
   - appName: weather-api

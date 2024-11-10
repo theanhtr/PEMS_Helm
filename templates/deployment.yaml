@@ -24,12 +24,48 @@ spec:
         image: {{ $.Values.repoPrefix }}/{{ $services.appName }}:{{ $.Values.imageDefaultTag }}
         {{- end}}
         imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 5
+          httpGet:
+            {{- if $services.healthCheckPath}}
+            path: {{ $services.healthCheckPath }}
+            {{- else}}
+            path: {{ $.Values.defaultHealthCheckPath }}
+            {{- end}}
+            {{- if $services.port}}
+            port: {{ $services.port }}
+            {{- else}}
+            port: {{ $.Values.deploymentPort }}
+            {{- end}}
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
         ports:
         {{- if $services.port}}
         - containerPort: {{ $services.port }}
         {{- else}}
         - containerPort: {{ $.Values.deploymentPort }}
         {{- end}}
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            {{- if $services.healthCheckPath}}
+            path: {{ $services.healthCheckPath }}
+            {{- else}}
+            path: {{ $.Values.defaultHealthCheckPath }}
+            {{- end}}
+            {{- if $services.port}}
+            port: {{ $services.port }}
+            {{- else}}
+            port: {{ $.Values.deploymentPort }}
+            {{- end}}
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
         {{- if $services.env}}
         env: {{ $services.env | toYaml | nindent 8 }}
         {{- end}}
