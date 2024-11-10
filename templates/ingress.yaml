@@ -12,6 +12,7 @@ spec:
       paths:
       {{- range $services := .Values.services }}
       - path: {{ $.Values.prefixPath }}{{ $services.subPath }}
+        pathType: Prefix
         backend:
           serviceName: {{ $services.appName }}
           servicePort: {{ $.Values.servicePort }}
