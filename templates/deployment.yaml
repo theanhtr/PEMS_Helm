@@ -38,8 +38,8 @@ spec:
             port: {{ $.Values.deploymentPort }}
             {{- end}}
             scheme: HTTP
-          initialDelaySeconds: 100
-          periodSeconds: 20
+          initialDelaySeconds: 10
+          periodSeconds: 10
           successThreshold: 1
           timeoutSeconds: 10
         ports:
@@ -62,8 +62,8 @@ spec:
             port: {{ $.Values.deploymentPort }}
             {{- end}}
             scheme: HTTP
-          initialDelaySeconds: 100
-          periodSeconds: 20
+          initialDelaySeconds: 10
+          periodSeconds: 10
           successThreshold: 1
           timeoutSeconds: 10
         {{- if $services.env}}
