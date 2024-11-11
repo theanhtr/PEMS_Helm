@@ -76,7 +76,7 @@ spec:
         - name: APPLICATION_BASE_PATH
           value: {{ $.Values.prefixPath }}{{ $services.subPath }}
         - name: DOTNET_RUNNING_IN_CONTAINER
-          value: true
+          value: "true"
         {{- if $services.port}}
         - name: ASPNETCORE_URLS
           value: http://+:{{ $services.port }}
