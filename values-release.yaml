@@ -11,7 +11,7 @@ defaultHealthCheckPath: /Test
 services:
   - appName: pems-fe
     subPath: /ui
-    healthCheckPath: /
+    healthCheckPath: /test/ui/
     port: 80
   - appName: authen-api
     subPath: /APIS/AuthenAPI
