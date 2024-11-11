@@ -73,6 +73,8 @@ spec:
           value: {{ $.Values.environment }}
         - name: APPLICATION_CODE
           value: {{ $services.appName }}
+        - name: APPLICATION_BASE_PATH
+          value: {{ $.Values.prefixPath }}{{ $services.subPath }}
         {{- if $services.port}}
         - name: ASPNETCORE_URLS
           value: http://+:{{ $services.port }}
