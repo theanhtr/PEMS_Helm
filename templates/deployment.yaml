@@ -75,12 +75,18 @@ spec:
           value: {{ $services.appName }}
         - name: APPLICATION_BASE_PATH
           value: {{ $.Values.prefixPath }}{{ $services.subPath }}
+        - name: DOTNET_RUNNING_IN_CONTAINER
+          value: true
         {{- if $services.port}}
         - name: ASPNETCORE_URLS
           value: http://+:{{ $services.port }}
+        - name: ASPNETCORE_HTTP_PORTS
+          value: {{ $services.port }}
         {{- else}}
         - name: ASPNETCORE_URLS
           value: http://+:{{ $.Values.deploymentPort }}
+        - name: ASPNETCORE_HTTP_PORTS
+          value: {{ $services.port }}
         {{- end}}
         {{- if $services.env}}
         {{- $services.env | toYaml | nindent 8 }}
