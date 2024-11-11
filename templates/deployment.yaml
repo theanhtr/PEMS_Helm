@@ -81,12 +81,12 @@ spec:
         - name: ASPNETCORE_URLS
           value: http://+:{{ $services.port }}
         - name: ASPNETCORE_HTTP_PORTS
-          value: {{ $services.port }}
+          value: "{{ $services.port }}"
         {{- else}}
         - name: ASPNETCORE_URLS
           value: http://+:{{ $.Values.deploymentPort }}
         - name: ASPNETCORE_HTTP_PORTS
-          value: {{ $.Values.deploymentPort }}
+          value: "{{ $.Values.deploymentPort }}"
         {{- end}}
         {{- if $services.env}}
         {{- $services.env | toYaml | nindent 8 }}
