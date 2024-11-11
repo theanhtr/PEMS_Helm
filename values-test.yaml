@@ -1,4 +1,4 @@
-environment: test
+environment: Test
 repoPrefix: "theanh0906"
 servicePort: 80
 deploymentPort: 8080
