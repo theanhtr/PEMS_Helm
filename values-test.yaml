@@ -32,4 +32,4 @@ workers:
       - name: ENV
         value: test
       - name: TIME_WORKER
-        value: 60
+        value: "60"
