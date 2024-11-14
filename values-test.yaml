@@ -23,3 +23,10 @@ services:
     subPath: /APIS/UserAPI
   - appName: report-api
     subPath: /APIS/ReportAPI
+
+workers:
+  - appName: auto-calculation-worker
+    port: 80
+    env:
+      - name: ENV
+        value: test
