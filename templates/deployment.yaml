@@ -116,59 +116,13 @@ spec:
         image: {{ $.Values.repoPrefix }}/{{ $workers.appName }}:{{ $.Values.imageDefaultTag }}
         {{- end}}
         imagePullPolicy: IfNotPresent
-        livenessProbe:
-          failureThreshold: 5
-          httpGet:
-            {{- if $workers.healthCheckPath}}
-            path: {{ $workers.healthCheckPath }}
-            {{- else}}
-            path: {{ $.Values.defaultHealthCheckPath }}
-            {{- end}}
-            {{- if $workers.port}}
-            port: {{ $workers.port }}
-            {{- else}}
-            port: {{ $.Values.deploymentPort }}
-            {{- end}}
-            scheme: HTTP
-          initialDelaySeconds: 10
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 10
         ports:
         {{- if $workers.port}}
         - containerPort: {{ $workers.port }}
         {{- else}}
         - containerPort: {{ $.Values.deploymentPort }}
         {{- end}}
-        readinessProbe:
-          failureThreshold: 3
-          httpGet:
-            {{- if $workers.healthCheckPath}}
-            path: {{ $workers.healthCheckPath }}
-            {{- else}}
-            path: {{ $.Values.defaultHealthCheckPath }}
-            {{- end}}
-            {{- if $workers.port}}
-            port: {{ $workers.port }}
-            {{- else}}
-            port: {{ $.Values.deploymentPort }}
-            {{- end}}
-            scheme: HTTP
-          initialDelaySeconds: 10
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 10
         env:
-        - name: ASPNETCORE_ENVIRONMENT
-          value: {{ $.Values.environment }}
-        - name: DOTNET_ENVIRONMENT
-          value: {{ $.Values.environment }}
-        - name: APPLICATION_CODE
-          value: {{ $workers.appName }}
-        - name: APPLICATION_BASE_PATH
-          value: {{ $.Values.prefixPath }}{{ $workers.subPath }}
-        - name: DOTNET_RUNNING_IN_CONTAINER
-          value: "true"
         {{- if $workers.port}}
         - name: ASPNETCORE_HTTP_PORTS
           value: "{{ $workers.port }}"
