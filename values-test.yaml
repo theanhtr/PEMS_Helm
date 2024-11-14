@@ -27,6 +27,7 @@ services:
 workers:
   - appName: auto-calculation-worker
     port: 80
+    replicaCount: 1
     env:
       - name: ENV
         value: test

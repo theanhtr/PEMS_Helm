@@ -6,7 +6,11 @@ metadata:
   labels:
     app: {{ $services.appName }}
 spec:
+  {{- if $services.replicaCount}}
+  replicas: {{ $services.replicaCount }}
+  {{- else}}
   replicas: {{ $.Values.replicaCount }}
+  {{- end}}
   revisionHistoryLimit: 0
   selector:
     matchLabels:
@@ -98,7 +102,11 @@ metadata:
   labels:
     app: {{ $workers.appName }}
 spec:
+  {{- if $workers.replicaCount}}
+  replicas: {{ $workers.replicaCount }}
+  {{- else}}
   replicas: {{ $.Values.replicaCount }}
+  {{- end}}
   revisionHistoryLimit: 0
   selector:
     matchLabels:
