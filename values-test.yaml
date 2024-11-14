@@ -31,3 +31,5 @@ workers:
     env:
       - name: ENV
         value: test
+      - name: TIME_WORKER
+        value: 60
